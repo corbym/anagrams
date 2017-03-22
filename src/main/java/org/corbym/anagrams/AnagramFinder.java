@@ -9,18 +9,11 @@ import static java.util.stream.Collectors.*;
 
 public class AnagramFinder {
 
-
     public String anagramsIn(final List<String> wordList) {
-
-        long start = System.currentTimeMillis();
-        System.out.println("started anagramming loop " + start);
-
         final Map<String, Set<String>> allAnagramLists = wordList.stream()
                 .collect(groupingBy(this::sortedCharsIgnoringCase, () -> new TreeMap<>(reverseOrder()),
                         mapping(identity(), toCollection(TreeSet::new))));
 
-        long stop = System.currentTimeMillis();
-        System.out.println("completed loop in " + (stop - start) + "ms");
         return reportOnAnagrams(new ArrayList<>(allAnagramLists.values()));
     }
 
